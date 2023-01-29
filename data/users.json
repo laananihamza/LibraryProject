@@ -1,0 +1,18 @@
+{
+  "Users": [
+    {
+      "FName": "Hamza",
+      "LName": "LAANANI",
+      "email": "hl@admin.com",
+      "password": "12345678",
+      "id": 1
+    },
+    {
+      "FName": "Folan",
+      "LName": "Ahmadi",
+      "email": "xyz@user.com",
+      "password": "12345678",
+      "id": 2
+    }
+  ]
+}
