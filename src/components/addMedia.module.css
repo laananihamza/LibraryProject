@@ -1,0 +1,138 @@
+.main {
+    width: calc(100% - 355px);
+    float: left;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0px #cccccc69;
+    margin-top: 25px;
+    margin-left: 10px;
+    padding: 15px;
+
+}
+
+.HeadTiltle {
+    width: 100%;
+    border-bottom: 1px solid #dddddd59;
+}
+
+.label {
+    display: block;
+    margin: 10px 0;
+    font-size: 17px;
+}
+
+.input {
+    padding: 10px;
+    width: 95%;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    display: block;
+    font-size: 17px;
+
+}
+
+.input::placeholder {
+    background-color: #ffffff;
+    color: #777d74;
+    font-size: 18px;
+}
+
+.input:focus {
+    outline: none;
+    border: 1px solid #ddd;
+}
+
+.input[type=file] {
+    position: relative;
+
+}
+
+.input[type=file]::-webkit-file-upload-button {
+    visibility: hidden;
+
+}
+
+.input::before {
+    content: 'Browser';
+    position: absolute;
+    background: #ddd;
+    height: calc(100% - 6px);
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -4px;
+    left: 0;
+
+}
+
+.textarea {
+    padding: 10px;
+    width: 95%;
+    height: 250px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    display: block;
+    font-size: 17px;
+
+}
+
+.textarea:focus {
+    outline: none;
+    border: 1px solid #ddd;
+}
+
+.add {
+    background-color: #05d5b4;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 17px;
+    color: #ffffff;
+    margin: 10px 5px;
+    cursor: pointer;
+    transition: .2s;
+
+}
+
+.add:hover {
+    background-color: #03c4a6;
+
+}
+
+.reset {
+    background-color: #f5674fc2;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 17px;
+    color: #ffffff;
+    margin: 10px 5px;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.reset:hover {
+    background-color: #f5674f;
+
+}
+
+@media (max-width: 1200px) {
+    .main {
+        width: calc(100% - 280px);
+    }
+}
+
+@media (max-width: 900px) {
+    .main {
+        width: calc(100% - 110px);
+    }
+}

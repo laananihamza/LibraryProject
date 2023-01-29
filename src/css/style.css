@@ -1,0 +1,45 @@
+.loading {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    color: white;
+    font-size: 50px;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul.links {
+    padding: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 0;
+    background-color: #1a202c;
+    display: flex;
+    justify-content: space-evenly;
+    z-index: 100;
+}
+
+ul.links li {
+    list-style: none;
+    display: inline;
+    padding: 0 15px;
+
+}
+
+
+
+
+ul.links li a {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    transition: .3s;
+}
+
+ul.links li:hover a {
+    color: lightskyblue;
+}
