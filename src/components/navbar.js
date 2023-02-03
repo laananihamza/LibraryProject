@@ -157,7 +157,7 @@ const Navbar = ({isAdmin}) => {
                     <Li className='book' ><NavLink to="/book" onClick={() => setClassLi("book")}> <LinkA style={(isActive) => ({color: isActive ? '#0dd6b8': ''})}><FontAwesomeIcon icon={faBook} /> <LinkSpan>الكتب</LinkSpan></LinkA> </NavLink></Li>
                     <Li className='audio' ><NavLink to="/audio" onClick={() => setClassLi("audio")}> <LinkA style={(isActive) => ({color: isActive ? '#0dd6b8': ''})}><FontAwesomeIcon icon={faHeadset} /><LinkSpan>الصوتيات</LinkSpan></LinkA> </NavLink></Li>
                     <Li className='video' ><NavLink to="/video" onClick={() => setClassLi("video")}> <LinkA style={(isActive) => ({color: isActive ? '#0dd6b8': ''})}><FontAwesomeIcon icon={faPlay} /><LinkSpan>الفيديوهات</LinkSpan></LinkA> </NavLink></Li>
-                    <Li className='contact' ><NavLink to="/contact" onClick={() => setClassLi("contact")}> <LinkA style={(isActive) => ({color: isActive ? '#0dd6b8': ''})}><FontAwesomeIcon icon={faPhone} /><LinkSpan>اتصل بنا</LinkSpan></LinkA> </NavLink></Li>
+                    {/* <Li className='contact' ><NavLink to="/contact" onClick={() => setClassLi("contact")}> <LinkA style={(isActive) => ({color: isActive ? '#0dd6b8': ''})}><FontAwesomeIcon icon={faPhone} /><LinkSpan>اتصل بنا</LinkSpan></LinkA> </NavLink></Li> */}
                     {isAdmin && <Li className='admin' onClick={() => setIsClicked((prev) => !prev)}>
                             <LiC><FontAwesomeIcon icon={faUser} /><LinkSpan>المسؤول</LinkSpan></LiC>
                             <Dropdown> 
