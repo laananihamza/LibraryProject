@@ -3,14 +3,14 @@ import './App.css';
 import Navbar from './components/navbar';
 
 /* React Router */
-import {Route, Routes, useLocation, Link} from 'react-router-dom';
+import {Route, Routes, useLocation, Link, useNavigate, redirect} from 'react-router-dom';
 import Books from './components/fetch data/Books';
 // import Header from './components/Header';
 import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
 import { AddBook, EditBook, GetBooks } from './components/GBook';
 import Audio from './components/fetch data/Audio';
-import AddAudio from './components/AddAudio';
+import {AddAudio, EditAudio, GetAudio} from './components/GAudio';
 import Video from './components/fetch data/Video';
 import AddVideo from './components/AddVideo';
 import Home from './components/Home';
@@ -19,6 +19,7 @@ import OneBook from './components/OneMedia/OneBook';
 import styled from 'styled-components';
 import SignUp from './components/login System/register';
 import NotFound from './components/NotFound';
+import OneAudio from './components/OneMedia/OneAudio';
 
 const Header = styled.header`
         padding: 15px;
@@ -30,7 +31,7 @@ const Header = styled.header`
         float: left;
         background-color: white;
         box-shadow: 0 0 5px 0px #cccccc80;
-        @media (max-width: 900px) {
+        @media (max-width: 930px) {
             width: calc(100% - 80px);
             padding: 15px 10px;
         }
@@ -41,7 +42,7 @@ const Header = styled.header`
         cursor: default;
         color: #688e88;
         display: block;
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
             font-size: 20px;
         }
     `;
@@ -69,13 +70,15 @@ const Header = styled.header`
         align-items: center;
         gap: 10px;
         cursor: pointer;
+        user-select: none;
+        text-align: center;
     `;
     const Img = styled.img`
         border-radius: 100%;
         width: 50px;
         height: 50px;
         object-fit: cover;
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
             width: 40px;
             height: 40px;
         }
@@ -87,7 +90,7 @@ const Header = styled.header`
     margin: 0;
     font-size: 1.6em;
     display: none;
-    @media (max-width: 900px) {
+    @media (max-width: 930px) {
         display: block;
     }
     @media (max-width: 700px) {
@@ -112,7 +115,7 @@ const Header = styled.header`
     `;
     const Form = styled.form`
         position: relative;
-        @media (max-width: 900px) {
+        @media (max-width: 930px) {
           display: none;
       }
     `;
@@ -127,7 +130,7 @@ const Header = styled.header`
         padding: 15px;
         box-shadow: 0px 0px 3px #ddd;
         z-index: 99;
-        height: 350px;
+        max-height: 350px;
         overflow-y: scroll;
     `;
     const P = styled.p`
@@ -136,7 +139,20 @@ const Header = styled.header`
             color: black;
         }
     `;
-
+    const LogOut = styled.button`
+        position: absolute;
+        width: 100%;
+        padding: 10px 0;
+        background-color: #ff2b2bdb;
+        color: #fff;
+        border: none;
+        bottom: -90%;
+        transition: .2s;
+        cursor: pointer;
+        &:hover {
+            background-color: #ff2b2b;
+        }
+    `;
 
 function App() {
     const [title, setTitle] = useState(null);
@@ -145,10 +161,13 @@ function App() {
     const [showed, setIsShowed] = useState(false);
     const [user, setUser] = useState([]);
     const [isLogin, setIsLogin] = useState(false);
+    const [logOutUser, setLogOutUser] = useState(false);
+    const [adminAccount, setisAdminAcc] = useState(false);
     const location = useLocation()
     let path = location.pathname.replace('/', '');
     let adminEmail = 'hl@admin.com';
-    const Useremail = sessionStorage.getItem('user');
+    let Useremail = sessionStorage.getItem('user');
+    // const navig = useNavigate()
 
     useEffect(() => {
         if (Useremail !== null) {
@@ -157,11 +176,23 @@ function App() {
         .then((data) => {
                 setIsLogin(true)
                 setUser(data[0])
+                
                 console.log(Useremail);
             }
-        )
+            )
         }
     }, [Useremail])
+
+    useEffect(() => {
+        if (adminEmail === user?.email) {
+            console.log('is Admin');
+            setisAdminAcc(true)
+            
+        }else {
+            setisAdminAcc(false)
+            
+        }
+    }, [user])
 
     function handlerSearch(e) {
         setIsShowed(true)
@@ -180,6 +211,14 @@ function App() {
             setBooks(books);
         })
     }
+    function logOut() {
+        sessionStorage.removeItem('user')
+        setIsLogin(false)
+        setLogOutUser(false)
+        // redirect('/')
+        // setUseremail('')
+        setisAdminAcc(false)
+    }
     return (
         // <Router>
         <>
@@ -197,26 +236,35 @@ function App() {
                     {/* <SubmitButton>بحث</SubmitButton> */}
                 </Form>
                 <MLogo>MediaStore</MLogo>
-                {isLogin ? <Profile>
-                    <Img src={ './images/User.jpg'} />
-                    {`${user?.FName} ${user?.LName}`}
-                </Profile> : <Link to='/login'><LoginButton>Login</LoginButton></Link>}
+                {isLogin ? <div style={{position: "relative"}}>
+                    <Profile onClick={() => setLogOutUser((prev) => !prev)}>
+                        <Img src={ './images/User.jpg'} />
+                        {`Hi, ${user?.FName} `}
+                    </Profile>
+                    {logOutUser === true && <LogOut onClick={logOut}>Log Out</LogOut>}
+                    </div> 
+                : <Link to='/login'><LoginButton>Login</LoginButton></Link>}
             </Header>}
-        {path === 'login' || path === 'register' ? null : <Navbar isAdmin={adminEmail === user?.email? true :false} />}
+        {path === 'login' || path === 'register' ? null : <Navbar isAdmin={adminAccount} />}
+        {/* {path === 'login' || path === 'register' ? null : <Navbar isAdmin={adminEmail === user?.email? true :false} />} */}
         
         {/* <Books /> */}
         <div className="content">
             <Routes>
                 <Route exact path='/' element={<Home />} />
                 <Route path='/book' element={<GetBooks />} />
+                <Route path='/audio' element={<GetAudio />} />
                 <Route path='/book/:id' element={<OneBook />} />
+                <Route path='/audio/:id' element={<OneAudio />} />
                 <Route path='/admin/gbook' element={<Books />} />
                 <Route path='/admin/gbook/add' element={<AddBook />} />
                 <Route path='/admin/gbook/:id/edit' element={<EditBook />} />
                 <Route path='/admin/gaudio' element={<Audio />} />
                 <Route path='/admin/gaudio/add' element={<AddAudio />} />
+                <Route path='/admin/gaudio/:id/edit' element={<EditAudio />} />
                 <Route path='/admin/gvideo' element={<Video />} />
                 <Route path='/admin/gvideo/add' element={<AddVideo />} />
+                <Route path='/admin/gvideo/:id/edit' element={<AddVideo />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<SignUp />} />
                 <Route path='/*' element={<NotFound />} />
